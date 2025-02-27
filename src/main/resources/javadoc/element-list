@@ -1,0 +1,7 @@
+com.sina_reidenbach.insurancePremium
+com.sina_reidenbach.insurancePremium.controller
+com.sina_reidenbach.insurancePremium.dto
+com.sina_reidenbach.insurancePremium.model
+com.sina_reidenbach.insurancePremium.repository
+com.sina_reidenbach.insurancePremium.service
+com.sina_reidenbach.insurancePremium.utils

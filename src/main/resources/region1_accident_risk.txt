@@ -1,0 +1,17 @@
+Bundesland,Unfallrisiko-Faktor
+Baden-Württemberg,1.5
+Bayern,1.5
+Berlin,2.0
+Brandenburg,1.0
+Bremen,1.5
+Hamburg,1.5
+Hessen,1.0
+Mecklenburg-Vorpommern,0.5
+Niedersachsen,1.0
+Nordrhein-Westfalen,1.5
+Rheinland-Pfalz,1.0
+Saarland, 1.0
+Sachsen,1.0
+Sachsen-Anhalt,0.5
+Schleswig-Holstein,0.5
+Thüringen,1.0

@@ -1,0 +1,16 @@
+Fahrzeugtyp,Unfallrisiko-Faktor
+Pkw (Personenkraftwagen),1.5
+Lkw (Lastkraftwagen),1.5
+Motorrad,2.0
+Fahrrad,1.5
+Bus,1.0
+Traktor (Landwirtschaft),0.5
+E-Scooter,1.5
+Roller (Motor),2.0
+Elektrofahrzeug (Pkw),1.0
+Wohnmobil,1.0
+Taxi,1.5
+Transporter (z.B. Sprinter),1.5
+Lkw mit Anhänger,1.8
+Geländewagen (SUV),1.5
+Moped,2.0

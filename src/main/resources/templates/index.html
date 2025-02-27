@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versicherungsprämie Berechnung</title>
+    <link rel="stylesheet" th:href="@{/CSS/styles.css}" />
+</head>
+<body>
+
+<div class="headline">
+    <h1>Hier können Sie Ihre Versicherungsprämie berechnen</h1>
+</div>
+
+<!-- Container für Eingabeformular -->
+<div class="input-form">
+    <form action="/berechnen" method="POST">
+        <div th:if="${error}" class="alert alert-danger" style="margin-top: 20px; padding: 10px; border-radius: 8px; background-color: #f8d7da; color: #721c24;">
+            <strong>Fehler:</strong> <span th:text="${error}"></span>
+        </div>
+
+        <label for="km">Jährliche Kilometerleistung:</label>
+        <input type="number" id="km" name="km" placeholder="Jährliche Kilometerleistung" min="1" max="2147483647" required
+               oninvalid="if (this.validity.valueMissing) { this.setCustomValidity('Bitte eine Jahreskilometerleistung eingeben.'); }
+             else if (this.validity.rangeUnderflow) { this.setCustomValidity('Die Kilometerleistung darf nicht kleiner als 1 sein.'); }
+             else if (this.validity.rangeOverflow) { this.setCustomValidity('Die Kilometerleistung darf 2147483647 nicht überschreiten.'); }
+             else { this.setCustomValidity(''); }"
+               oninput="this.setCustomValidity('')"
+               th:value="${km}">
+
+        <input type="text" id="postcode" name="postcodeValue" placeholder="Postleitzahl der Zulassungsstelle" list="postcode-list"
+               required th:attr="title=${errors != null and errors.contains('Postleitzahl Ungültig!') ? 'Postleitzahl Ungültig!' : ''}"
+               oninput="filterPostcodes(); this.setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Bitte gebe eine Postleitzahl ein.')"
+               autocomplete="off" th:value="${postcodeValue}">
+
+        <datalist id="postcode-list">
+            <!-- Optionen werden hier durch JavaScript gesetzt -->
+        </datalist>
+
+        <label for="vehicle">Fahrzeugtyp:</label>
+        <select id="vehicle" name="vehicleId" required th:attr="oninvalid='this.setCustomValidity(&#34;Bitte wähle einen Fahrzeugtyp aus der Liste.&#34;)'"
+                oninput="this.setCustomValidity('')">
+            <option value="" th:selected="${vehicleId == null}">-- Bitte wählen --</option>
+            <option th:each="v : ${vehicleList}" th:value="${v.id}" th:text="${v.name}" th:selected="${vehicleId == v.id}"></option>
+        </select>
+
+        <label>
+            <input type="checkbox" name="dataConsent" required
+                   oninvalid="this.setCustomValidity('Bitte stimmen Sie der Datenspeicherung zu.')"
+                   oninput="this.setCustomValidity('')">
+            Ich stimme der Speicherung meiner IP-Adresse zu, um die Berechnungen und statistische Auswertungen zu ermöglichen.
+        </label>
+
+        <button type="submit">Berechnen</button>
+    </form>
+
+
+    <h2>Berechnete Prämie: <span th:text="${premium}">300,00</span> €</h2>
+</div>
+
+<div class="footer">
+    <p></p>
+</div>
+
+<script>
+    function filterPostcodes() {
+        const input = document.getElementById("postcode").value;
+
+        fetch('/filter-postcodes?input=' + encodeURIComponent(input))
+            .then(response => response.text())
+            .then(data => {
+                const datalist = document.getElementById("postcode-list");
+                datalist.innerHTML = data;
+            })
+            .catch(error => console.error('Fehler beim Abrufen der Postleitzahlen:', error));
+    }
+</script>
+
+</body>
+</html>
